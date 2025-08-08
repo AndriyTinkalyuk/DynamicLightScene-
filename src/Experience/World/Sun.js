@@ -54,7 +54,7 @@ export default class Sun {
         this.scene.add(this.sunMesh)
 
         // Освітлення
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 1)
+        this.sunLight = new THREE.DirectionalLight('#ffffff', 0)
         this.sunLight.castShadow = true
 
         // Тіньова камера
@@ -100,8 +100,12 @@ export default class Sun {
 
         // Кут висоти (щоб симулювати інтенсивність)
         const normalizedY = (y + this.radius) / (2 * this.radius) // від 0 до 1
-        const intensity = THREE.MathUtils.clamp(normalizedY, 0.1, 1)
+        const intensity = THREE.MathUtils.clamp(normalizedY, 0.1, 0.25) // обмеження інтенсивності від 0.1 до 0.25
         this.sunLight.intensity = intensity
-        this.sunMesh.material.color.setHSL(0.15, 1, intensity * 0.5 + 0.25)
+        this.sunMesh.material.color.setHSL(0.15, 1, intensity * 0.1 + 0.25)
+
+        if(!this.isDay) {
+            this.sunLight.intensity = 0
+        }
     }
 }

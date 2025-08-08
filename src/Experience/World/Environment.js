@@ -6,7 +6,7 @@ export default class Environment{
         this.scene = this.experience.scene
         this.resources = this.experience.resourses
 
-        this.setEnvironmentMap()
+        
     }
 
 

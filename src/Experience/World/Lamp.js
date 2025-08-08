@@ -24,7 +24,7 @@ export default class Lamp {
            this.model.scale.set(3, 3, 3)
            console.log(this.model);
 
-           this.light = new THREE.PointLight('white', 3, 5)
+           this.light = new THREE.PointLight(0xffecb3, 3, 5)
            this.light.position.set(0, 0.1, 0)
            this.light.scale.set(0.1,0.1,0.1)
            this.light.shadow.camera.near = 10;

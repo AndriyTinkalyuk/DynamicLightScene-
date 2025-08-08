@@ -57,10 +57,10 @@ export default class World {
           const sunIntensity = this.sun.sunLight.intensity
 
         // Плавно змінюємо інтенсивність ambientLight
-        this.ambientLight.intensity += (sunIntensity - this.ambientLight.intensity) * 0.05
+        this.ambientLight.intensity += (sunIntensity - this.ambientLight.intensity) * 0.01
 
         // Плавно змінюємо інтенсивність sky
-      if(this.sun.sunLight.position.y < 0 && this.sun.sunLight.position.y > - 5) {
+      if(this.sun.sunLight.position.y < 0 && this.sun.sunLight.position.y > - 8) {
             this.sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95)
         } else {
             this.sky.material.uniforms['sunPosition'].value.copy(this.sun.sunLight.position)

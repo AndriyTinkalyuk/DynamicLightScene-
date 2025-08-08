@@ -5,6 +5,7 @@ import { GlitchPass } from "three/examples/jsm/Addons.js";
 import { ShaderPass } from "three/examples/jsm/Addons.js";
 import { RGBShiftShader } from "three/examples/jsm/Addons.js";
 import { GammaCorrectionShader } from 'three/examples/jsm/shaders/GammaCorrectionShader.js'
+import { UnrealBloomPass } from "three/examples/jsm/Addons.js";
 import * as THREE from 'three'
 import Experience from "../Experience";
 
@@ -58,6 +59,18 @@ export default class Postprocessing {
         this.glitchPass.enabled = false
         this.instance.addPass(this.glitchPass)
 
+        // unrealBloom
+        this.unrealBloomPass = new UnrealBloomPass(
+    0.1,        // strength
+    0.377,        // radius
+    0.262         // threshold
+        )
+        this.instance.addPass(this.unrealBloomPass)
+        this.unrealBloomPass.strength = 0.1
+        this.unrealBloomPass.radius = 0.377
+        this.unrealBloomPass.threshold = 0.262
+
+
         // RGBShaderPass
 
         this.shaderPass = new ShaderPass(RGBShiftShader)
@@ -69,10 +82,15 @@ export default class Postprocessing {
     }
 
     setDebug() { 
-        if(this.debug.active) {  
+        if (this.debug.active) {  
         this.debugFolder = this.debug.ui.addFolder('Postprocessing')
         this.debugFolder.add(this.dotScreenPass, 'enabled').name('DotScreen')
-         this.debugFolder.add(this.glitchPass, 'enabled').name('Glitch')
+        this.debugFolder.add(this.glitchPass, 'enabled').name('Glitch')
+        console.log(this.unrealBloomPass);
+        this.debugFolder.add(this.unrealBloomPass, 'enabled')
+        this.debugFolder.add(this.unrealBloomPass, 'strength').min(0).max(2).step(0.001)
+        this.debugFolder.add(this.unrealBloomPass, 'radius').min(0).max(2).step(0.001)
+        this.debugFolder.add(this.unrealBloomPass, 'threshold').min(0).max(1).step(0.001)
         }
     }
 
