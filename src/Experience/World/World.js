@@ -45,6 +45,8 @@ export default class World {
         this.sky.material.uniforms['mieCoefficient'].value = 0.1
         this.sky.material.uniforms['mieDirectionalG'].value = 0.95
         this.sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95)
+
+        
     }
 
 
@@ -56,5 +58,12 @@ export default class World {
 
         // Плавно змінюємо інтенсивність ambientLight
         this.ambientLight.intensity += (sunIntensity - this.ambientLight.intensity) * 0.05
+
+        // Плавно змінюємо інтенсивність sky
+      if(this.sun.sunLight.position.y < 0 && this.sun.sunLight.position.y > - 5) {
+            this.sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95)
+        } else {
+            this.sky.material.uniforms['sunPosition'].value.copy(this.sun.sunLight.position)
+        }
     }
 }
